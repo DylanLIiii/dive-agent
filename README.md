@@ -44,7 +44,6 @@
 | [抽象层](./docs/learns/harness/abstractions/) | LLM 抽象层比较 | 3 |
 | [WebSocket](./docs/learns/harness/websocket/) | OpenAI WebSocket 比较 | 1 |
 | [机器人技术](./docs/learns/harness/robotics/) | 机器人运动控制 | 2 |
-| [评估](./docs/learns/evaluation/) | Agent 性能测试和安全评估 | 2 |
 
 ### 最佳实践
 
