@@ -50,47 +50,43 @@ jobs:
 
       - name: Generate Tag Pages
         run: |
-          # Extract tags from all docs and build tag index
-          declare -A tag_docs
-          
-          # Process learning notes
+          # 清理临时文件
+          rm -f /tmp/doc_tags.txt /tmp/tag_*.txt
+
+          # Process learning notes - 使用进程替代避免子 shell 问题
           if [ -d "docs/learns" ]; then
-            find docs/learns -name "*.md" -type f | while read file; do
+            while read file; do
               filename=$(basename "$file")
-              # Extract tags from YAML frontmatter
-              tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' '\n' | sed 's/^ *//;s/ *$//' | grep -v '^$')
+              # Extract tags from YAML frontmatter - 用空格连接而不是换行
+              tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' ' ' | sed 's/^ *//;s/ *$//')
               if [ -n "$tags" ]; then
-                echo "$filename|learns|$tags" >> /tmp/doc_tags.txt
+                # 每个文件写入多行，每行一个 tag
+                for tag in $tags; do
+                  echo "${filename}|learns|${tag}" >> /tmp/doc_tags.txt
+                done
               fi
-            done
+            done < <(find docs/learns -name "*.md" -type f)
           fi
-          
+
           # Process best-choices
           if [ -d "docs/best-choices" ]; then
-            find docs/best-choices -name "*.md" -type f | while read file; do
+            while read file; do
               filename=$(basename "$file")
-              # Extract tags from YAML frontmatter
-              tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' '\n' | sed 's/^ *//;s/ *$//' | grep -v '^$')
+              tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' ' ' | sed 's/^ *//;s/ *$//')
               if [ -n "$tags" ]; then
-                echo "$filename|best-choices|$tags" >> /tmp/doc_tags.txt
+                for tag in $tags; do
+                  echo "${filename}|best-choices|${tag}" >> /tmp/doc_tags.txt
+                done
               fi
-            done
+            done < <(find docs/best-choices -name "*.md" -type f)
           fi
-          
-          # Build tag index
-          if [ -f /tmp/doc_tags.txt ]; then
-            while IFS='|' read -r filename folder tags; do
-              for tag in $tags; do
-                echo "$filename|$folder" >> "/tmp/tag_${tag}.txt"
-              done
-            done < /tmp/doc_tags.txt
-          fi
-          
+
           # Generate tag pages
-          for tag_file in /tmp/tag_*.txt; do
-            if [ -f "$tag_file" ]; then
-              tag=$(basename "$tag_file" | sed 's/tag_//' | sed 's/.txt$//')
-              cat > "wiki/tags/${tag}.md" << EOF
+          if [ -f /tmp/doc_tags.txt ]; then
+            # 获取所有唯一标签
+            cut -d'|' -f3 /tmp/doc_tags.txt | sort -u | while read tag; do
+              if [ -n "$tag" ]; then
+                cat > "wiki/tags/${tag}.md" << EOF
           # Tag: ${tag}
 
           包含标签 **#${tag}** 的所有文档。
@@ -98,22 +94,25 @@ jobs:
           ## 学习笔记
 
           EOF
-              grep '|learns|' "$tag_file" | while IFS='|' read -r doc folder; do
-                name="${doc%.md}"
-                echo "- [${name}](../learns/${doc})" >> "wiki/tags/${tag}.md"
-              done
-              
-              echo "" >> "wiki/tags/${tag}.md"
-              echo "## 最佳实践" >> "wiki/tags/${tag}.md"
-              echo "" >> "wiki/tags/${tag}.md"
-              
-              grep '|best-choices|' "$tag_file" | while IFS='|' read -r doc folder; do
-                name="${doc%.md}"
-                echo "- [${name}](../best-choices/${doc})" >> "wiki/tags/${tag}.md"
-              done
-            fi
-          done
-          
+                # 添加学习笔记链接
+                grep "|learns|${tag}$" /tmp/doc_tags.txt | while IFS='|' read -r doc folder t; do
+                  name="${doc%.md}"
+                  echo "- [${name}](../learns/${name})" >> "wiki/tags/${tag}.md"
+                done
+
+                echo "" >> "wiki/tags/${tag}.md"
+                echo "## 最佳实践" >> "wiki/tags/${tag}.md"
+                echo "" >> "wiki/tags/${tag}.md"
+
+                # 添加最佳实践链接
+                grep "|best-choices|${tag}$" /tmp/doc_tags.txt | while IFS='|' read -r doc folder t; do
+                  name="${doc%.md}"
+                  echo "- [${name}](../best-choices/${name})" >> "wiki/tags/${tag}.md"
+                done
+              fi
+            done
+          fi
+
           # Generate Tags index page
           cat > wiki/Tags.md << 'EOF'
           # 标签索引
@@ -123,22 +122,23 @@ jobs:
           ## 所有标签
 
           EOF
-          
-          if ls /tmp/tag_*.txt 1> /dev/null 2>&1; then
-            for tag_file in /tmp/tag_*.txt; do
-              tag=$(basename "$tag_file" | sed 's/tag_//' | sed 's/.txt$//')
-              count=$(wc -l < "$tag_file" | tr -d ' ')
-              echo "- [#${tag}](./${tag}) (${count})" >> wiki/Tags.md
-            done | sort
+
+          if [ -f /tmp/doc_tags.txt ]; then
+            # 统计每个标签的文档数
+            cut -d'|' -f3 /tmp/doc_tags.txt | sort | uniq -c | sort -rn | while read count tag; do
+              if [ -n "$tag" ]; then
+                echo "- [#${tag}](./tags/${tag}) (${count})" >> wiki/Tags.md
+              fi
+            done
           fi
-          
+
           echo "" >> wiki/Tags.md
           echo "---" >> wiki/Tags.md
           echo "*点击标签查看相关文档*" >> wiki/Tags.md
 
       - name: Generate Home page
         run: |
-          cat > wiki/Home.md << 'EOF'
+          cat > wiki/Home.md << EOF
           # Agent Group 知识库 Wiki
 
           欢迎访问 Agent Group Wiki！本 Wiki 自动同步自 [主仓库](${{ github.server_url }}/${{ github.repository }})。
@@ -146,32 +146,22 @@ jobs:
           ## 标签云
 
           EOF
-          
-          # Collect all tags
-          all_tags=""
-          if ls /tmp/tag_*.txt 1> /dev/null 2>&1; then
-            for tag_file in /tmp/tag_*.txt; do
-              tag=$(basename "$tag_file" | sed 's/tag_//' | sed 's/.txt$//')
-              count=$(wc -l < "$tag_file" | tr -d ' ')
-              all_tags="${all_tags} ${tag}|${count}"
-            done
-          fi
-          
-          # Sort tags by count (descending) and display
-          if [ -n "$all_tags" ]; then
+
+          # 从 doc_tags.txt 生成标签表
+          if [ -f /tmp/doc_tags.txt ]; then
             echo "按标签浏览文档：" >> wiki/Home.md
             echo "" >> wiki/Home.md
             echo "| 标签 | 文档数 |" >> wiki/Home.md
             echo "|------|--------|" >> wiki/Home.md
-            for tag_info in $all_tags; do
-              tag=$(echo "$tag_info" | cut -d'|' -f1)
-              count=$(echo "$tag_info" | cut -d'|' -f2)
-              echo "| [#${tag}](./tags/${tag}) | ${count} |" >> wiki/Home.md
-            done | sort -t'|' -k3 -nr
+            cut -d'|' -f3 /tmp/doc_tags.txt | sort | uniq -c | sort -rn | while read count tag; do
+              if [ -n "$tag" ]; then
+                echo "| [#${tag}](./tags/${tag}) | ${count} |" >> wiki/Home.md
+              fi
+            done
           else
             echo "暂无标签" >> wiki/Home.md
           fi
-          
+
           cat >> wiki/Home.md << 'EOF'
 
           ## 学习笔记
@@ -180,21 +170,20 @@ jobs:
 
           # Add links to all learning notes
           if [ -d "docs/learns" ]; then
-            find docs/learns -name "*.md" -type f | sort | while read file; do
+            while read file; do
               filename=$(basename "$file")
               name="${filename%.md}"
-              # Extract tags for this file
               tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' ' ' | sed 's/^ *//;s/ *$//')
               if [ -n "$tags" ]; then
                 tag_links=""
                 for tag in $tags; do
                   tag_links="${tag_links} [#${tag}](./tags/${tag})"
                 done
-                echo "- [${name}](./learns/${filename})${tag_links}" >> wiki/Home.md
+                echo "- [${name}](./learns/${name})${tag_links}" >> wiki/Home.md
               else
-                echo "- [${name}](./learns/${filename})" >> wiki/Home.md
+                echo "- [${name}](./learns/${name})" >> wiki/Home.md
               fi
-            done
+            done < <(find docs/learns -name "*.md" -type f | sort)
           fi
 
           cat >> wiki/Home.md << 'EOF'
@@ -204,21 +193,20 @@ jobs:
           EOF
 
           if [ -d "docs/best-choices" ]; then
-            find docs/best-choices -name "*.md" -type f | sort | while read file; do
+            while read file; do
               filename=$(basename "$file")
               name="${filename%.md}"
-              # Extract tags for this file
               tags=$(sed -n '/^---$/,/^---$/p' "$file" | grep -E '^tags:' | sed 's/tags://' | tr ',' ' ' | sed 's/^ *//;s/ *$//')
               if [ -n "$tags" ]; then
                 tag_links=""
                 for tag in $tags; do
                   tag_links="${tag_links} [#${tag}](./tags/${tag})"
                 done
-                echo "- [${name}](./best-choices/${filename})${tag_links}" >> wiki/Home.md
+                echo "- [${name}](./best-choices/${name})${tag_links}" >> wiki/Home.md
               else
-                echo "- [${name}](./best-choices/${filename})" >> wiki/Home.md
+                echo "- [${name}](./best-choices/${name})" >> wiki/Home.md
               fi
-            done
+            done < <(find docs/best-choices -name "*.md" -type f | sort)
           fi
 
           echo "" >> wiki/Home.md
@@ -238,11 +226,11 @@ jobs:
           EOF
 
           if [ -d "docs/learns" ]; then
-            find docs/learns -name "*.md" -type f | sort | while read file; do
+            while read file; do
               filename=$(basename "$file")
               name="${filename%.md}"
-              echo "- [${name}](./learns/${filename})" >> wiki/_Sidebar.md
-            done
+              echo "- [${name}](./learns/${name})" >> wiki/_Sidebar.md
+            done < <(find docs/learns -name "*.md" -type f | sort)
           fi
 
           cat >> wiki/_Sidebar.md << 'EOF'
@@ -252,24 +240,26 @@ jobs:
           EOF
 
           if [ -d "docs/best-choices" ]; then
-            find docs/best-choices -name "*.md" -type f | sort | while read file; do
+            while read file; do
               filename=$(basename "$file")
               name="${filename%.md}"
-              echo "- [${name}](./best-choices/${filename})" >> wiki/_Sidebar.md
-            done
+              echo "- [${name}](./best-choices/${name})" >> wiki/_Sidebar.md
+            done < <(find docs/best-choices -name "*.md" -type f | sort)
           fi
-          
+
           cat >> wiki/_Sidebar.md << 'EOF'
 
           ### 按标签浏览
 
           EOF
-          
-          if ls /tmp/tag_*.txt 1> /dev/null 2>&1; then
-            for tag_file in /tmp/tag_*.txt; do
-              tag=$(basename "$tag_file" | sed 's/tag_//' | sed 's/.txt$//')
-              echo "- [#${tag}](./tags/${tag})" >> wiki/_Sidebar.md
-            done | sort
+
+          # 从 doc_tags.txt 获取唯一标签列表
+          if [ -f /tmp/doc_tags.txt ]; then
+            cut -d'|' -f3 /tmp/doc_tags.txt | sort -u | while read tag; do
+              if [ -n "$tag" ]; then
+                echo "- [#${tag}](./tags/${tag})" >> wiki/_Sidebar.md
+              fi
+            done
           fi
 
       - name: Commit and push wiki
