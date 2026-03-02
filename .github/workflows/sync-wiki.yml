@@ -28,10 +28,19 @@ jobs:
           path: wiki
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Clean wiki
+        run: |
+          # Remove old tag pages and directories
+          rm -rf wiki/tags
+          rm -f wiki/Tags.md
+          
+          # Clean learns and best-choices for fresh sync
+          rm -rf wiki/learns
+          rm -rf wiki/best-choices
+
       - name: Sync docs to wiki
         run: |
-          # Clean and recreate learns directory
-          rm -rf wiki/learns
+          # Create directories
           mkdir -p wiki/learns
           
           # Sync learns with directory structure preserved
@@ -48,8 +57,7 @@ jobs:
             done
           fi
           
-          # Clean and recreate best-choices directory
-          rm -rf wiki/best-choices
+          # Create best-choices directory
           mkdir -p wiki/best-choices
           
           # Sync best-choices
