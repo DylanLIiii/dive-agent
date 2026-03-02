@@ -1,0 +1,314 @@
+# 主题标签
+streaming:
+  label: 流式处理
+  permalink: /streaming
+  description: 异步流式、WebSocket 模式和实时通信
+
+error-handling:
+  label: 错误处理
+  permalink: /error-handling
+  description: 结构化错误、重试策略和弹性模式
+
+context-management:
+  label: 上下文管理
+  permalink: /context-management
+  description: 会话历史、上下文转换和内存模式
+
+type-safety:
+  label: 类型安全
+  permalink: /type-safety
+  description: 类型安全的消息层次结构和序列化模式
+
+middleware:
+  label: 中间件
+  permalink: /middleware
+  description: 回调和可扩展性系统
+
+concurrency:
+  label: 并发
+  permalink: /concurrency
+  description: 状态快照和并发模式
+
+architecture:
+  label: 架构
+  permalink: /architecture
+  description: 框架架构分析和设计模式
+
+abstractions:
+  label: 抽象层
+  permalink: /abstractions
+  description: LLM 抽象层比较和 SDK 模式
+
+websocket:
+  label: WebSocket
+  permalink: /websocket
+  description: WebSocket 协议比较和实时通信
+
+robotics:
+  label: 机器人技术
+  permalink: /robotics
+  description: 机器人运动控制和 Embodied AI 模式
+
+evaluation:
+  label: 评估
+  permalink: /evaluation
+  description: Agent 评估和测试框架
+
+# 模式标签
+async:
+  label: 异步
+  permalink: /async
+  description: 异步编程模式
+
+pattern:
+  label: 设计模式
+  permalink: /pattern
+  description: 通用设计模式
+
+best-practice:
+  label: 最佳实践
+  permalink: /best-practice
+  description: 经过验证的最佳实践
+
+resilience:
+  label: 弹性设计
+  permalink: /resilience
+  description: 容错和弹性系统设计
+
+# 框架标签
+kosong:
+  label: Kosong
+  permalink: /kosong
+  description: Kimi CLI 流式引擎
+
+pydantic-ai:
+  label: Pydantic AI
+  permalink: /pydantic-ai
+  description: 类型安全的 GenAI Agent 框架
+
+langchain:
+  label: LangChain
+  permalink: /langchain
+  description: 上下文感知推理应用框架
+
+republic:
+  label: Republic
+  permalink: /republic
+  description: Tape-based Agent 框架
+
+agentscope:
+  label: AgentScope
+  permalink: /agentscope
+  description: 多 Agent 应用平台
+
+pi-mono:
+  label: Pi Mono
+  permalink: /pi-mono
+  description: 多提供者 LLM 抽象层
+
+retry:
+  label: 重试
+  permalink: /retry
+  description: 重试策略和机制
+
+# 自动发现的标签
+abstraction:
+  label: abstraction
+  permalink: /abstraction
+  description: 自动发现的标签
+
+agent:
+  label: agent
+  permalink: /agent
+  description: 自动发现的标签
+
+agent-harness:
+  label: agent-harness
+  permalink: /agent-harness
+  description: 自动发现的标签
+
+anchor:
+  label: anchor
+  permalink: /anchor
+  description: 自动发现的标签
+
+animation:
+  label: animation
+  permalink: /animation
+  description: 自动发现的标签
+
+audio:
+  label: audio
+  permalink: /audio
+  description: 自动发现的标签
+
+audio-sync:
+  label: audio-sync
+  permalink: /audio-sync
+  description: 自动发现的标签
+
+behavioral-evaluation:
+  label: behavioral-evaluation
+  permalink: /behavioral-evaluation
+  description: 自动发现的标签
+
+bloom:
+  label: bloom
+  permalink: /bloom
+  description: 自动发现的标签
+
+callback:
+  label: callback
+  permalink: /callback
+  description: 自动发现的标签
+
+comparison:
+  label: comparison
+  permalink: /comparison
+  description: 自动发现的标签
+
+discriminator:
+  label: discriminator
+  permalink: /discriminator
+  description: 自动发现的标签
+
+dual-mode:
+  label: dual-mode
+  permalink: /dual-mode
+  description: 自动发现的标签
+
+embodied-ai:
+  label: embodied-ai
+  permalink: /embodied-ai
+  description: 自动发现的标签
+
+emotion:
+  label: emotion
+  permalink: /emotion
+  description: 自动发现的标签
+
+encapsulation:
+  label: encapsulation
+  permalink: /encapsulation
+  description: 自动发现的标签
+
+kimi-cli:
+  label: kimi-cli
+  permalink: /kimi-cli
+  description: 自动发现的标签
+
+layering:
+  label: layering
+  permalink: /layering
+  description: 自动发现的标签
+
+litai:
+  label: litai
+  permalink: /litai
+  description: 自动发现的标签
+
+message-parts:
+  label: message-parts
+  permalink: /message-parts
+  description: 自动发现的标签
+
+motion-control:
+  label: motion-control
+  permalink: /motion-control
+  description: 自动发现的标签
+
+observability:
+  label: observability
+  permalink: /observability
+  description: 自动发现的标签
+
+openai:
+  label: openai
+  permalink: /openai
+  description: 自动发现的标签
+
+opik:
+  label: opik
+  permalink: /opik
+  description: 自动发现的标签
+
+reachy:
+  label: reachy
+  permalink: /reachy
+  description: 自动发现的标签
+
+real-time:
+  label: real-time
+  permalink: /real-time
+  description: 自动发现的标签
+
+realtime:
+  label: realtime
+  permalink: /realtime
+  description: 自动发现的标签
+
+red-teaming:
+  label: red-teaming
+  permalink: /red-teaming
+  description: 自动发现的标签
+
+reproducibility:
+  label: reproducibility
+  permalink: /reproducibility
+  description: 自动发现的标签
+
+safety:
+  label: safety
+  permalink: /safety
+  description: 自动发现的标签
+
+sdk:
+  label: sdk
+  permalink: /sdk
+  description: 自动发现的标签
+
+security:
+  label: security
+  permalink: /security
+  description: 自动发现的标签
+
+seed-driven:
+  label: seed-driven
+  permalink: /seed-driven
+  description: 自动发现的标签
+
+session-history:
+  label: session-history
+  permalink: /session-history
+  description: 自动发现的标签
+
+state-machine:
+  label: state-machine
+  permalink: /state-machine
+  description: 自动发现的标签
+
+state-snapshot:
+  label: state-snapshot
+  permalink: /state-snapshot
+  description: 自动发现的标签
+
+tape:
+  label: tape
+  permalink: /tape
+  description: 自动发现的标签
+
+tool-call:
+  label: tool-call
+  permalink: /tool-call
+  description: 自动发现的标签
+
+transformation:
+  label: transformation
+  permalink: /transformation
+  description: 自动发现的标签
+
+voice:
+  label: voice
+  permalink: /voice
+  description: 自动发现的标签
+

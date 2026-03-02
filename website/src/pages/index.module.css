@@ -1,0 +1,109 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+[data-theme='dark'] .heroBanner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heroButtons .button--primary {
+  background-color: white;
+  color: #764ba2;
+  border-color: white;
+}
+
+.heroButtons .button--primary:hover {
+  background-color: #f0f0f0;
+  color: #5a3580;
+}
+
+.heroButtons .button--outline {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.heroButtons .button--outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.features {
+  padding: 3rem 0;
+}
+
+.featureCol {
+  margin-bottom: 1.5rem;
+}
+
+.featureCard {
+  display: block;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  height: 100%;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--ifm-color-primary);
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-theme='dark'] .featureCard:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.featureContent h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.featureContent p {
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.featureStats {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  background-color: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .featureStats {
+  background-color: rgba(118, 75, 162, 0.2);
+  color: var(--ifm-color-primary-lighter);
+}

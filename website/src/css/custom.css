@@ -1,0 +1,88 @@
+/**
+ * Agent Group 自定义样式
+ * 基于 Infima CSS 变量覆盖
+ */
+
+/* ── 品牌颜色 ────────────────────────────── */
+
+:root {
+  --ifm-color-primary: #6366f1;
+  --ifm-color-primary-dark: #4f46e5;
+  --ifm-color-primary-darker: #4338ca;
+  --ifm-color-primary-darkest: #3730a3;
+  --ifm-color-primary-light: #818cf8;
+  --ifm-color-primary-lighter: #a5b4fc;
+  --ifm-color-primary-lightest: #c7d2fe;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* ── 中文排版优化 ────────────────────────── */
+
+:root {
+  --ifm-font-family-base: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei',
+    system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-line-height-base: 1.8;
+}
+
+.markdown {
+  letter-spacing: 0.02em;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-weight: 600;
+}
+
+/* ── 标签样式 ────────────────────────────── */
+
+.tag_node_modules {
+  border-radius: 20px;
+}
+
+/* ── 搜索框 ────────────────────────────── */
+
+.navbar__search-input {
+  border-radius: 8px;
+}
+
+/* ── 侧边栏 ────────────────────────────── */
+
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 0.9rem;
+}
+
+/* ── 阅读进度条 ────────────────────────── */
+
+.progress-bar {
+  z-index: 1000;
+}
+
+/* ── 代码块 ────────────────────────────── */
+
+.prism-code {
+  font-size: 0.9rem;
+}
+
+/* ── 响应式 ────────────────────────────── */
+
+@media (max-width: 768px) {
+  .markdown {
+    font-size: 0.95rem;
+  }
+}

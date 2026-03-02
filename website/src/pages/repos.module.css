@@ -1,0 +1,105 @@
+.category {
+  margin-bottom: 3rem;
+}
+
+.category h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  border-radius: 20px;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.categoryDesc {
+  color: var(--ifm-color-emphasis-600);
+  margin-bottom: 1rem;
+}
+
+.repoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
+.repoCard {
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: border-color 0.2s;
+}
+
+.repoCard:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.repoHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.repoName {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.notesBadge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  background-color: var(--ifm-color-success-lightest, #dcfce7);
+  color: var(--ifm-color-success-darkest, #166534);
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .notesBadge {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+}
+
+.repoDesc {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.notesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.noteLink {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-800);
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.noteLink:hover {
+  background-color: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-darkest);
+  text-decoration: none;
+}
+
+.emptyHint {
+  color: var(--ifm-color-emphasis-500);
+  font-style: italic;
+}

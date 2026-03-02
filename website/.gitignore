@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+build/
+.docusaurus/
+
+# Synced docs (generated from ../docs)
+docs/
+
+# Generated files
+.cache-loader/
+
+# Misc
+.DS_Store
+*.log
