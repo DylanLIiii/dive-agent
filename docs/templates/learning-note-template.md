@@ -1,3 +1,7 @@
+---
+tags: streaming, async, pattern
+---
+
 # [文档标题]
 
 > **范围**：简要描述本文档涵盖的内容

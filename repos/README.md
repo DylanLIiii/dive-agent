@@ -4,24 +4,27 @@
 
 ## 分类
 
-### [Agent](./agent/)（0 个仓库）
+### [Agent](./agent/)（2 个仓库）
 
 独立的 AI Agent 应用和实现，可直接使用。
 
 | 仓库 | 描述 | 语言 | 状态 |
 |------|------|------|------|
-| *暂无* | - | - | - |
+| [om1](https://github.com/OpenMind/OM1) | 模块化机器人 AI 运行时和框架，用于人形机器人 | Python | ✅ |
+| [reachy-mini-conversation-app](https://github.com/pollen-robotics/reachy_mini_conversation_app) | Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库 | Python | ✅ |
 
 **[查看详情 →](./agent/README.md)**
 
 ---
 
-### [Agent-harness](./agent-harness/)（6 个仓库）
+### [Agent-harness](./agent-harness/)（8 个仓库）
 
 Agent 框架和编排工具，提供构建 AI Agent 的核心抽象。
 
 | 仓库 | 描述 | 语言 |
 |------|------|------|
+| [agentscope](https://github.com/agentscope-ai/agentscope) | 用于构建应用程序的多智能体平台 | Python |
+| [agno](https://github.com/agno-agi/agno) | Framework for building AI Agents with memory, knowledge, and tools | Python |
 | [pydantic-ai](https://github.com/pydantic/pydantic-ai) | 提供者无关的 GenAI Agent 框架，完全类型安全 | Python |
 | [langchain](https://github.com/langchain-ai/langchain) | 构建上下文感知推理应用 | Python |
 | [republic](https://github.com/fixie/republic) | 基于 Tape 的 Agent 框架，完整审计追踪 | Python |
@@ -33,13 +36,15 @@ Agent 框架和编排工具，提供构建 AI Agent 的核心抽象。
 
 ---
 
-### [Agent Evaluation](./agent-evaluation/)（0 个仓库）
+### [Agent Evaluation](./agent-evaluation/)（3 个仓库）
 
 Agent 性能测试和评估框架。
 
 | 仓库 | 描述 | 语言 | 状态 |
 |------|------|------|------|
-| *暂无* | - | - | - |
+| [opik](https://github.com/comet-ml/opik) | 开源 LLM 评估与观测平台，支持追踪、自动评估及生产监控 | Python | - |
+| [bloom](https://github.com/safety-research/bloom) | Backdooring LLMs for multi-agent environments | Python | - |
+| [ACEBench](https://github.com/chenchen0103/ACEBench) | A comprehensive benchmark for assessing tool usage in LLMs | Python | - |
 
 **[查看详情 →](./agent-evaluation/README.md)**
 

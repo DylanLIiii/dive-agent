@@ -13,6 +13,30 @@ Agent-harness 框架提供：
 
 ## 已索引仓库
 
+### agentscope
+
+- **URL**: https://github.com/agentscope-ai/agentscope
+- **语言**: Python
+- **关键特性**:
+  - 多智能体协作（MsgHub, ServiceMap）
+  - 易用性设计（高层抽象，HIL 支持）
+  - 分布式部署支持（K8s, Serverless）
+  - 完善的可观测性（OpenTelemetry）
+- **学习笔记**:
+  - *暂无*
+
+### agno
+
+- **URL**: https://github.com/agno-agi/agno
+- **语言**: Python
+- **关键特性**:
+  - 持久化内存（会话管理）
+  - 知识库 (RAG) 支持
+  - 多智能体团队和复杂工作流
+  - AgentOS 控制面板用于监控和调试
+- **学习笔记**:
+  - *暂无*
+
 ### pydantic-ai
 
 - **URL**: https://github.com/pydantic/pydantic-ai
@@ -90,14 +114,14 @@ Agent-harness 框架提供：
 
 ## 比较矩阵
 
-| 特性 | pydantic-ai | langchain | republic | kimi-cli |
-|------|-------------|-----------|----------|----------|
-| 类型安全 | ✅ 完全 | 部分 | 部分 | 部分 |
-| 流式处理 | ✅ 一等公民 | ✅ 支持 | ✅ 支持 | ✅ 一等公民 |
-| 工具调用 | ✅ 并行 | ✅ 并行 | ✅ 顺序 | ✅ 并行 |
-| 错误处理 | ✅ 结构化 | ✅ 回调 | 基础 | ✅ 结构化 |
-| 状态管理 | 基于图 | LangGraph | 基于 Tape | 基于 Tape |
-| 可观测性 | Logfire | LangSmith | 基础 | 内置 |
+| 特性 | agentscope | agno | pydantic-ai | langchain | republic | kimi-cli |
+|------|------------|------|-------------|-----------|----------|----------|
+| 多智能体 | ✅ MsgHub | ✅ 团队 | 基础 | LangGraph | 基础 | 基础 |
+| 流式处理 | ✅ 支持 | ✅ 支持 | ✅ 一等公民 | ✅ 支持 | ✅ 支持 | ✅ 一等公民 |
+| 工具调用 | ✅ ServiceMap | ✅ 并行 | ✅ 并行 | ✅ 并行 | ✅ 顺序 | ✅ 并行 |
+| 部署 | ✅ 分布式 | ✅ 生产 API | 库 | 库 | 库 | 库 |
+| 状态管理 | 集中式/分布式 | 会话管理 | 基于图 | LangGraph | 基于 Tape | 基于 Tape |
+| 可观测性 | OTel/UI | AgentOS | Logfire | LangSmith | 基础 | 内置 |
 
 ---
 

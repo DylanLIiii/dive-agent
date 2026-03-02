@@ -1,3 +1,7 @@
+---
+tags: error-handling, retry, best-practice, resilience, pydantic-ai, langchain, pi-mono, kosong, republic
+---
+
 # LLM Error Handling & Retry: Best Practices Design
 
 > **Scope**: Structured error classification, automatic retry mechanisms, fallback strategies, and recovery patterns for LLM client libraries and agent frameworks.

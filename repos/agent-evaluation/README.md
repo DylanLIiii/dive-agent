@@ -14,7 +14,9 @@ Agent Evaluation 框架提供：
 
 | 仓库 | 描述 | 语言 | 状态 |
 |------|------|------|------|
-| *暂无* | - | - | - |
+| [opik](https://github.com/comet-ml/opik) | 开源 LLM 评估与观测平台，支持追踪、自动评估及生产监控 | Python | - |
+| [bloom](https://github.com/safety-research/bloom) | Backdooring LLMs for multi-agent environments | Python | - |
+| [ACEBench](https://github.com/chenchen0103/ACEBench) | A comprehensive benchmark for assessing tool usage in LLMs | Python | - |
 
 ## 建议添加
 

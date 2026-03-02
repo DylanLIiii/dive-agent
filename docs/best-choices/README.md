@@ -16,6 +16,7 @@
 |------|------|----------|----------|
 | [LLM 错误处理设计](./llm-error-handling-design.md) | 结构化错误分类、重试策略、回退模式 | pydantic-ai, langchain, republic | 2026-02-26 |
 | [流式拉取防抖推送设计](./streaming-pull-debounced-push-design.md) | 拉取式和防抖推送的流式架构模式 | pydantic-ai, kimi-cli, republic | 2026-02-26 |
+| [机器人情绪与动作系统设计](./emotion-motion-system-design.md) | 永不静止原则、双层融合架构、音频驱动运动 | reachy-mini-conversation-app | 2026-03-02 |
 
 ## 贡献最佳实践
 

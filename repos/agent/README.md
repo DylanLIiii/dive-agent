@@ -23,7 +23,55 @@ Agent 仓库是完整的、可运行的 Agent 应用：
 
 | 仓库 | 描述 | 语言 | 状态 |
 |------|------|------|------|
-| *暂无* | - | - | - |
+| [om1](https://github.com/OpenMind/OM1) | 模块化机器人 AI 运行时和框架，用于人形机器人 | Python | ✅ |
+| [reachy-mini-conversation-app](https://github.com/pollen-robotics/reachy_mini_conversation_app) | Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库 | Python | ✅ |
+
+### om1
+
+**仓库**: https://github.com/OpenMind/OM1
+
+**描述**: 为物理和数字智能体设计的模块化 AI 运行时和框架，特别针对人形机器人。
+
+**技术特点**:
+- **模块化运行时**: 支持物理机器人（人形）和数字 Agent 的统一脑部系统。
+- **多模态感知**: 整合摄像头、LIDAR 和 Web 数据流。
+- **硬件集成**: 插件化架构，支持 ROS2, Zenoh, CycloneDDS 等机器人中间件。
+- **LLM/VLM 适配**: 预配置了主流大语言模型和视觉语言模型的端点。
+- **分布式计算**: 利用高速通信协议处理实时动作响应。
+
+**架构模式**:
+- 基于插件的感知和动作系统。
+- 统一的 Agent 状态空间管理。
+- 硬件抽象层，实现代码在不同机器人间的重用。
+
+**学习价值**:
+- 机器人 Agent 的软件堆栈设计。
+- 物理世界感知与 LLM 推理的结合。
+- 高性能机器人通信协议的应用。
+
+### reachy-mini-conversation-app
+
+**仓库**: https://github.com/pollen-robotics/reachy_mini_conversation_app
+
+**描述**: Reachy Mini 机器人的对话应用，是一个完整的 Embodied AI 应用。
+
+**技术特点**:
+- 实时音频对话循环，基于 OpenAI realtime API 和 fastrtc 低延迟流式传输
+- 多模态视觉处理：支持 gpt-realtime、本地 SmolVLM2、YOLO 和 MediaPipe
+- 分层运动系统：排队主要动作（舞蹈、情绪、姿势）同时混合语音反应和面部追踪
+- 异步工具调度：集成机器人运动、摄像头捕获和面部追踪
+- Gradio Web UI 支持实时转录
+
+**架构模式**:
+- 分层架构连接用户、AI 服务和机器人硬件
+- 可配置的 Profile 系统：自定义指令和工具集
+- 锁定 Profile 模式：用于创建固定人格的应用变体
+
+**学习价值**:
+- Embodied AI 应用架构设计
+- 实时多模态 Agent 实现
+- 机器人控制与 AI 服务集成
+- 可配置的 Agent 人格系统
 
 ## 建议添加
 

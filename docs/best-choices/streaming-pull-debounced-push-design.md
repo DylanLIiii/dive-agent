@@ -1,3 +1,7 @@
+---
+tags: streaming, best-practice, pattern, kosong, pydantic-ai
+---
+
 # Pull + Debounced Push 混合流式设计
 
 > **设计来源**: Kimi (kosong) + Pydantic-AI 融合

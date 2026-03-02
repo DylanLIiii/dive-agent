@@ -5,6 +5,29 @@
   "sources": {
     "agent-harness": [
       {
+        "name": "agentscope",
+        "url": "https://github.com/agentscope-ai/agentscope.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Multi-agent platform for building applications",
+        "addedAt": "2026-03-02",
+        "notes": [
+          "docs/learns/streaming/realtime-voice-agentscope.md",
+          "docs/learns/streaming/realtime-vs-kosong.md"
+        ],
+        "commit": "722a60c95531a7389285fe82f2b5ca0d6d950cfe"
+      },
+      {
+        "name": "agno",
+        "url": "https://github.com/agno-agi/agno.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Framework for building AI Agents with memory, knowledge, and tools",
+        "addedAt": "2026-03-02",
+        "notes": [],
+        "commit": "fed8db2a32ebb4341df17c0429eef8885902b5d0"
+      },
+      {
         "name": "pydantic-ai",
         "url": "https://github.com/pydantic/pydantic-ai.git",
         "branch": "main",
@@ -61,7 +84,8 @@
         "addedAt": "2026-03-02",
         "notes": [
           "docs/learns/architecture/kimi-cli-architecture.md",
-          "docs/learns/streaming/async-streaming-first-class.md"
+          "docs/learns/streaming/async-streaming-first-class.md",
+          "docs/learns/streaming/realtime-vs-kosong.md"
         ],
         "commit": "600ff8f676bcbf61064562e8f9a7d25f806d44f6"
       },
@@ -78,8 +102,68 @@
         "commit": "9a0a8d7ccb03b89bd3700477b2b8b399bd38dc03"
       }
     ],
-    "agent": [],
-    "agent-evaluation": [],
+    "agent": [
+      {
+        "name": "om1",
+        "url": "https://github.com/OpenMind/OM1.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Modular AI runtime and framework for humanoid robots",
+        "addedAt": "2026-03-02",
+        "notes": [],
+        "commit": "04ac5a23832c5b025173448b707388113d2b0860"
+      },
+      {
+        "name": "reachy-mini-conversation-app",
+        "url": "https://github.com/pollen-robotics/reachy_mini_conversation_app.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库",
+        "addedAt": "2026-03-02",
+        "notes": [
+          "docs/learns/robotics/layered-motion-system.md",
+          "docs/learns/robotics/emotion-system-design.md"
+        ],
+        "commit": "a7e73279de578ccb0c37bd5443753caf3cfcbfe9"
+      }
+    ],
+    "agent-evaluation": [
+      {
+        "name": "opik",
+        "url": "https://github.com/comet-ml/opik.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Open-source LLM evaluation and observability platform",
+        "addedAt": "2026-03-02",
+        "notes": [
+          "docs/learns/evaluation/opik-bloom-integration.md"
+        ],
+        "commit": "3c319b837af8bb64d0f36927aab98e023307b31e"
+      },
+      {
+        "name": "bloom",
+        "url": "https://github.com/safety-research/bloom.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "Backdooring LLMs for multi-agent environments",
+        "addedAt": "2026-03-02",
+        "notes": [
+          "docs/learns/evaluation/seed-driven-evaluation/bloom-behavioral-evaluation.md",
+          "docs/learns/evaluation/opik-bloom-integration.md"
+        ],
+        "commit": "39c26499d9eb9da348680664d256ce0000a15cd3"
+      },
+      {
+        "name": "ACEBench",
+        "url": "https://github.com/chenchen0103/ACEBench.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "A comprehensive benchmark for assessing tool usage in LLMs",
+        "addedAt": "2026-03-02",
+        "notes": [],
+        "commit": "56dd66cf6439b0d9655ee1b353e4cd745c6f664e"
+      }
+    ],
     "agent-training": []
   }
 }

@@ -51,9 +51,13 @@ description: |
 
 ### 4. 编写学习笔记
 
-在 `docs/learns/<类别>/<主题>-<仓库>.md` 创建文件：
+在 `docs/learns/<父类别>/<主题类别>/<主题>-<仓库>.md` 创建文件：
 
 ```markdown
+---
+tags: <主题>, <仓库名称>, <相关标签>
+---
+
 # [主题] 在 [仓库名称]
 
 > **范围**：[本文档涵盖什么]
@@ -127,8 +131,8 @@ description: |
 1. 定位 `sources/agent-harness/pydantic-ai/`
 2. 研究流式处理实现
 3. 阅读 `docs/templates/learning-note-template.md`
-4. 编写 `docs/learns/streaming/pydantic-ai-streaming.md`
-5. 更新 `docs/README.md`
+4. 编写 `docs/learns/harness/streaming/pydantic-ai-streaming.md`
+5. 更新 `docs/learns/harness/README.md` 和 `docs/learns/README.md`
 6. 更新 `sources.json` notes 数组
 
 ## 质量标准
@@ -142,9 +146,10 @@ description: |
 
 ## 修改的文件
 
-- `docs/learns/<类别>/<文件名>.md` - 新学习笔记
-- `docs/README.md` - 添加到索引
-- `README.md` - 更新计数
+- `docs/learns/<父类别>/<主题类别>/<文件名>.md` - 新学习笔记
+- `docs/learns/<父类别>/README.md` - 添加到类别索引
+- `docs/learns/README.md` - 更新主索引
+- `README.md` - 更新计数（如需要）
 - `sources.json` - 添加到 notes 数组
 
 ## 验证
@@ -153,3 +158,40 @@ description: |
 2. 代码示例来自实际源码
 3. 索引已更新
 4. `sources.json` 包含笔记引用
+5. **必须包含 tags frontmatter** - 用于 Wiki 标签索引
+
+## Tags 指南
+
+创建学习笔记时必须添加 `tags` frontmatter：
+
+```yaml
+---
+tags: streaming, async, kosong, pydantic-ai
+---
+```
+
+**推荐标签**：
+- **主题标签**：`streaming`, `error-handling`, `type-safety`, `middleware`, `architecture`, `context-management`, `concurrency`, `websocket`, `benchmarks`, `testing`, `rl`, `fine-tuning`
+- **框架标签**：`kosong`, `pydantic-ai`, `langchain`, `republic`, `litai`, `kimi-cli`, `bloom`
+- **概念标签**：`async`, `pattern`, `comparison`, `resilience`, `evaluation`, `safety`
+- **父类别标签**：`harness`, `evaluation`, `training`
+
+标签用于 Wiki 自动生成标签云和分组浏览。
+
+## 目录结构示例
+
+```
+docs/learns/
+├── harness/
+│   ├── streaming/
+│   │   ├── async-streaming-first-class.md
+│   │   └── streaming-tool-assembly.md
+│   └── error-handling/
+│       └── structured-errors-retry.md
+├── evaluation/
+│   └── benchmarks/
+│       └── bloom-evaluation.md
+└── training/
+    └── rl/
+        └── ppo-implementation.md
+```

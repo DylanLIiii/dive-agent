@@ -49,6 +49,10 @@ grep -r "<主题>" docs/learns/
 在 `docs/best-choices/<主题>-best-practices.md` 创建文件：
 
 ```markdown
+---
+tags: <主题>, best-practice, <相关框架>
+---
+
 # [主题] 最佳实践
 
 > **综合自**：[分析的笔记和仓库列表]
@@ -166,3 +170,21 @@ grep -r "<主题>" docs/learns/
 2. 决策矩阵完整
 3. 索引已更新
 4. 来源笔记引用正确
+5. **必须包含 tags frontmatter** - 用于 Wiki 标签索引
+
+## Tags 指南
+
+创建最佳实践文档时必须添加 `tags` frontmatter：
+
+```yaml
+---
+tags: error-handling, best-practice, resilience, pydantic-ai, langchain
+---
+```
+
+**推荐标签**：
+- **类型标签**：`best-practice` (必需)
+- **主题标签**：`error-handling`, `streaming`, `architecture`, 等
+- **框架标签**：涉及的框架名称
+
+标签用于 Wiki 自动生成标签云和分组浏览。
