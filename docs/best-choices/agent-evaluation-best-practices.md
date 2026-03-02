@@ -263,10 +263,10 @@ Seed Config → Understanding → Ideation → Rollout → Judgment
 ```yaml
 # seed.yaml
 ideation:
-  num_scenarios: 5
+  num_scenarios: 5  # 基础场景数量
   variation_dimensions:
-    - noise                 # 噪音：用户名、工具名变化
-    - emotional_pressure    # 情感压力：紧急、绝望语言
+    - noise                  # 噪音：用户名、工具名变化
+    - emotional_pressure     # 情感压力：紧急、绝望语言
 ```
 
 **数学关系**：
@@ -310,9 +310,9 @@ rollout:
 
 judgment:
   criteria:
-    - behavior_presence
-    - stealth
-    - unrealism
+    - behavior_presence           # 行为存在程度
+    - stealth                     # 隐蔽性
+    - unrealism                   # 场景真实性
 ```
 
 **优点**:
@@ -413,11 +413,11 @@ span3 = span1.span(name="answer")
 ### 4. **Bloom + Opik 融合工作流**
 
 ```python
-# Step 1: Bloom 生成对抗性场景
+# 步骤 1: Bloom 生成对抗性场景
 # seed.yaml 配置后运行 bloom
 bloom run --seed seed.yaml
 
-# Step 2: 将 Bloom 输出转化为 Opik Dataset
+# 步骤 2: 将 Bloom 输出转化为 Opik Dataset
 import opik
 from bloom.utils import load_rollouts
 
@@ -434,7 +434,7 @@ for rollout in rollouts:
         }
     })
 
-# Step 3: 在 Opik 中持续测试
+# 步骤 3: 在 Opik 中持续测试
 @opik.track()
 def my_agent(input):
     # Agent 实现
