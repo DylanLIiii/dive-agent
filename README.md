@@ -26,16 +26,16 @@
 
 | 类别 | 描述 | 文档数 |
 |------|------|--------|
-| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 24 |
-| [Agent Evaluation](./docs/learns/evaluation/) | Agent 测试和评估模式 | 2 |
+| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 26 |
+| [Agent Evaluation](./docs/learns/evaluation/) | Agent 测试和评估模式 | 3 |
 | [Agent Training](./docs/learns/training/) | Agent 训练和微调方法 | 0 |
 
 #### Harness 主题
 
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
-| [流式处理](./docs/learns/harness/streaming/) | 异步流式、WebSocket 模式 | 7 |
-| [错误处理](./docs/learns/harness/error-handling/) | 结构化错误、重试策略 | 1 |
+| [流式处理](./docs/learns/harness/streaming/) | 异步流式、WebSocket 模式 | 6 |
+| [错误处理](./docs/learns/harness/error-handling/) | 结构化错误、重试策略 | 4 |
 | [上下文管理](./docs/learns/harness/context-management/) | 会话历史、上下文转换 | 4 |
 | [类型安全](./docs/learns/harness/type-safety/) | 类型安全的消息层次结构 | 1 |
 | [中间件](./docs/learns/harness/middleware/) | 回调和可扩展性系统 | 1 |
@@ -51,6 +51,7 @@
 
 | 文档 | 描述 |
 |------|------|
+| [历史项作为检查点设计](./docs/best-choices/history-item-checkpointer-design.md) | 不可变磁带模式、细粒度状态恢复 |
 | [LLM 错误处理设计](./docs/best-choices/llm-error-handling-design.md) | 结构化错误分类、重试策略 |
 | [流式拉取防抖推送设计](./docs/best-choices/streaming-pull-debounced-push-design.md) | 流式架构模式 |
 | [机器人情绪与动作系统设计](./docs/best-choices/emotion-motion-system-design.md) | 永不静止原则、双层融合架构 |
@@ -86,7 +87,7 @@
 
 ```
 仓库：14（Agent: 3, Agent-harness: 8, Evaluation: 3, Training: 0）
-文档：25 个学习笔记 + 3 个最佳实践文档
+文档：28 个学习笔记 + 4 个最佳实践文档
 主题：11
 最后更新：2026-03-04
 ```

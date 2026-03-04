@@ -6,14 +6,14 @@
 
 ## 按类别分类
 
-### [Agent Harness](./harness/)（24 篇）
+### [Agent Harness](./harness/)（26 篇）
 
 Agent 框架和编排工具的模式分析。
 
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
-| [流式处理](./harness/streaming/) | 异步流式、WebSocket 模式和实时通信 | 6 |
-| [错误处理](./harness/error-handling/) | 结构化错误、重试策略和弹性模式 | 2 |
+| [流式处理](./harness/streaming/) | 异步流式、WebSocket 模式 and 实时通信 | 6 |
+| [错误处理](./harness/error-handling/) | 结构化错误、重试策略和弹性模式 | 4 |
 | [上下文管理](./harness/context-management/) | 会话历史、上下文转换和内存模式 | 4 |
 | [类型安全](./harness/type-safety/) | 类型安全的消息层次结构和序列化模式 | 1 |
 | [中间件](./harness/middleware/) | 回调和可扩展性系统 | 1 |
@@ -27,13 +27,19 @@ Agent 框架和编排工具的模式分析。
 
 ---
 
-### [Agent Evaluation](./evaluation/)（2 篇）
+### [Agent Evaluation](./evaluation/)（3 篇）
 
 Agent 评估和测试框架的模式分析。
 
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
 | [Seed-driven Evaluation](./evaluation/seed-driven-evaluation/) | 基于 Seed 的自适应行为评估模式 | 1 |
+
+### 其他文档
+
+| 文档 | 描述 | 优先级 |
+|------|------|--------|
+| [Opik Bloom 集成](./evaluation/opik-bloom-integration.md) | 评估框架与观测平台集成 | P1 |
 
 潜在主题：
 - 基准测试框架设计
@@ -67,6 +73,7 @@ Agent 训练和微调相关的学习笔记。
 
 | 优先级 | 文档 | 类别 | 主题 |
 |--------|------|------|------|
+| P0 | [错误恢复与上下文无损](./harness/error-handling/error-recovery-without-context-loss.md) | Harness | 生产弹性 |
 | P0 | [异步流式一等公民](./harness/streaming/async-streaming-first-class.md) | Harness | 核心抽象 |
 | P0 | [类型化消息部件](./harness/type-safety/typed-message-parts-pydantic-ai.md) | Harness | 类型安全 |
 | P0 | [分层运动系统](./harness/robotics/layered-motion-system.md) | Harness | 机器人控制 |
