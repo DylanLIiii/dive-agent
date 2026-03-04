@@ -6,14 +6,14 @@
 
 ## 按类别分类
 
-### [Agent Harness](./harness/)（23 篇）
+### [Agent Harness](./harness/)（24 篇）
 
 Agent 框架和编排工具的模式分析。
 
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
 | [流式处理](./harness/streaming/) | 异步流式、WebSocket 模式和实时通信 | 6 |
-| [错误处理](./harness/error-handling/) | 结构化错误、重试策略和弹性模式 | 1 |
+| [错误处理](./harness/error-handling/) | 结构化错误、重试策略和弹性模式 | 2 |
 | [上下文管理](./harness/context-management/) | 会话历史、上下文转换和内存模式 | 4 |
 | [类型安全](./harness/type-safety/) | 类型安全的消息层次结构和序列化模式 | 1 |
 | [中间件](./harness/middleware/) | 回调和可扩展性系统 | 1 |
@@ -75,6 +75,7 @@ Agent 训练和微调相关的学习笔记。
 | P1 | [Bloom: Seed-driven 行为评估](./evaluation/seed-driven-evaluation/bloom-behavioral-evaluation.md) | Evaluation | 安全评估 |
 | P1 | [Opik Bloom 集成](./evaluation/opik-bloom-integration.md) | Evaluation | 评估集成 |
 | P1 | [结构化错误与重试](./harness/error-handling/structured-errors-retry.md) | Harness | 生产健壮性 |
+| P1 | [Codex 错误处理与流中断](./harness/error-handling/codex-error-handling-stream-interruption.md) | Harness | 错误处理 |
 | P1 | [流式工具组装](./harness/streaming/streaming-tool-assembly.md) | Harness | 流式处理 |
 | P1 | [Codex LLM 抽象层](./harness/architecture/codex-llm-abstraction.md) | Harness | 架构设计 |
 | P1 | [Codex 流式处理](./harness/streaming/codex-streaming.md) | Harness | 流式架构 |

@@ -24,6 +24,7 @@
 | 文档 | 描述 | 优先级 |
 |------|------|--------|
 | [结构化错误与重试](./learns/harness/error-handling/structured-errors-retry.md) | 错误分类、重试策略、错误恢复 | P1 |
+| [Codex 错误处理与流中断](./learns/harness/error-handling/codex-error-handling-stream-interruption.md) | Codex 的错误分类、可重试性判断、WebSocket 回退、流中断恢复 | P1 |
 
 #### [上下文管理](./learns/harness/context-management/)
 会话历史、上下文转换和内存模式。
@@ -109,6 +110,7 @@ Agent 性能测试、安全评估和观测模式。
 | P0 | [实时 vs. Kosong 对比](./learns/streaming/realtime-vs-kosong.md) | 架构对比 |
 | P1 | [Opik 与 Bloom 融合](./learns/evaluation/opik-bloom-integration.md) | 安全评估 |
 | P1 | [结构化错误与重试](./learns/harness/error-handling/structured-errors-retry.md) | 生产健壮性 |
+| P1 | [Codex 错误处理与流中断](./learns/harness/error-handling/codex-error-handling-stream-interruption.md) | 错误处理 |
 | P1 | [流式工具组装](./learns/harness/streaming/streaming-tool-assembly.md) | 流式处理 |
 | P2 | [Bloom 行为评估](./learns/evaluation/seed-driven-evaluation/bloom-behavioral-evaluation.md) | 行为评估 |
 | P2 | [上下文管理双模式](./learns/harness/context-management/context-management-dual-mode.md) | 状态管理 |
@@ -150,4 +152,4 @@ Agent 性能测试、安全评估和观测模式。
 
 ---
 
-*最后更新：2026-03-02*
+*最后更新：2026-03-04*

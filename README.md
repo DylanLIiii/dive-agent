@@ -26,7 +26,7 @@
 
 | 类别 | 描述 | 文档数 |
 |------|------|--------|
-| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 23 |
+| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 24 |
 | [Agent Evaluation](./docs/learns/evaluation/) | Agent 测试和评估模式 | 2 |
 | [Agent Training](./docs/learns/training/) | Agent 训练和微调方法 | 0 |
 

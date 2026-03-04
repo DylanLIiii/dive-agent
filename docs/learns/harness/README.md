@@ -26,6 +26,7 @@ Agent 框架和编排工具的模式分析。
 | 文档 | 描述 | 优先级 |
 |------|------|--------|
 | [结构化错误与重试](./error-handling/structured-errors-retry.md) | 错误分类、重试策略、错误恢复 | P1 |
+| [Codex 错误处理与流中断](./error-handling/codex-error-handling-stream-interruption.md) | 错误分类、可重试性判断、WebSocket 回退、流中断恢复 | P1 |
 
 ### [上下文管理](./context-management/)
 
@@ -115,6 +116,7 @@ WebSocket 协议比较。
 | P1 | [Codex LLM 抽象层](./architecture/codex-llm-abstraction.md) | 架构设计 |
 | P1 | [Codex 流式处理](./streaming/codex-streaming.md) | 流式架构 |
 | P1 | [Codex 上下文管理](./context-management/codex-context-management.md) | 上下文管理 |
+| P1 | [Codex 错误处理与流中断](./error-handling/codex-error-handling-stream-interruption.md) | 错误处理 |
 | P2 | [上下文管理双模式](./context-management/context-management-dual-mode.md) | 状态管理 |
 | P2 | [中间件/回调系统](./middleware/middleware-callback-system.md) | 可扩展性 |
 | P2 | [状态快照并发](./concurrency/state-snapshot-concurrency.md) | 并发 |
