@@ -2,271 +2,334 @@
 
 ## 概述
 
-Android Bench 是一个用于在 Android 开发任务上评估大型语言模型 (LLM) 的框架。它评估 AI 模型理解移动代码库、生成准确补丁和解决 Android 特定工程问题的能力。
+Android Bench 是一个用于在 Android 开发任务上对大语言模型 (LLM) 进行基准测试的框架。它评估 AI 模型理解移动代码库、生成准确补丁和解决 Android 特有工程问题的能力。
 
 **项目地址**: https://github.com/android-bench/android-bench
 
 ## 核心设计理念
 
-### 1. 两阶段基准测试
-- **推理阶段 (Inference/Agent)**: Agent 读取问题描述，生成代码补丁
-- **评估阶段 (Evaluation/Verifier)**: 应用补丁并运行测试来评分解决方案
+### 1. 任务驱动的基准测试
+- **真实问题**: 基于真实的 GitHub Issue 构建测试任务
+- **可重现环境**: 每次测试使用固定的代码库版本和 Docker 执行环境
+- **可靠的测试套件**: 测试必须在基础提交上失败，在应用修复补丁后通过
 
-### 2. Docker 隔离环境
-- 任务在隔离的 Docker 容器中运行
-- 每个任务有特定的 Docker 镜像
-- 确保可重现的执行环境
+### 2. 两阶段评估流程
+- **推理阶段 (Inference)**: Agent 读取问题描述，生成代码补丁
+- **评估阶段 (Verifier)**: 应用补丁并运行测试来评分解决方案
 
-### 3. 基于任务的数据集
-- 每个任务是一个真实的 Android 开发问题
-- 包含问题描述、基线代码、测试用例和验收标准
+### 3. 隔离的执行环境
+- **Docker 沙箱**: 所有评估在隔离的 Docker 容器中运行
+- **镜像缓存**: 基于数据集配置构建任务特定的 Docker 镜像
+- **可重现性**: 固定的依赖版本和环境配置
 
-### 4. 多模型支持
-- 通过 LiteLLM 集成支持多种模型
-- 默认支持 Gemini、OpenAI 等模型
-- 可扩展至其他兼容的 LLM
+### 4. 模块化架构
+- **CLI 层**: 命令行工具
+- **通用层**: 配置、加载器、日志等基础设施
+- ** Harness 层**: 推理和评估引擎
+- **数据集层**: 任务定义和测试数据
 
 ## 系统架构
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        Android Bench Framework                        │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  ┌─────────────┐    ┌─────────────────────────────────────────┐     │
-│  │   CLI       │───▶│           Harness (核心引擎)              │     │
-│  │ (run_task) │    ├─────────────────────────────────────────┤     │
-│  └─────────────┘    │  ┌─────────────┐    ┌─────────────┐  │     │
-│                     │  │ Inference   │    │ Evaluation   │  │     │
-│  ┌─────────────┐    │  │  (Agent)    │    │  (Verifier)  │  │     │
-│  │  Dataset    │───▶│  │             │    │              │  │     │
-│  │ Explorer    │    │  │ • Prompt    │    │ • Apply patch│  │     │
-│  └─────────────┘    │  │ • LLM call  │    │ • Run tests │  │     │
-│                     │  │ • Generate  │    │ • Score     │  │     │
-│  ┌─────────────┐    │  │   patch     │    │ • Report    │  │     │
-│  │   Results   │◀───│  └─────────────┘    └─────────────┘  │     │
-│  │ Visualizer  │    └─────────────────────────────────────────┘     │
-│  └─────────────┘                        │                          │
-│                                        ▼                          │
-│                     ┌─────────────────────────────────────────┐      │
-│                     │         Docker Container                │      │
-│                     │  ┌─────────────────────────────────┐   │      │
-│                     │  │   Android SDK + Gradle + Tests  │   │      │
-│                     │  │   Task-specific environment     │   │      │
-│                     │  └─────────────────────────────────┘   │      │
-│                     └─────────────────────────────────────────┘      │
-│                                                                      │
-└─────────────────────────────────────────────────────────────────────┘
++---------------------------------------------------------------------+
+|                         CLI Layer (cli/)                             |
++---------------------------------------------------------------------+
+|  benchmark    run_task    agent    verifier    dataset    results   |
++---------------------------------------------------------------------+
+                              |
+                              v
++---------------------------------------------------------------------+
+|                     Common Layer (common/)                           |
++---------------------------------------------------------------------+
+|  config.py    loader.py    logger.py    run_config.py    ui.py     |
+|  storage/    models/                                                    |
++---------------------------------------------------------------------+
+                              |
+              +---------------+---------------+
+              v                               v
++-------------------------+     +-------------------------+
+|  Inference (harness/)   |     |  Evaluation (harness/)|
++-------------------------+     +-------------------------+
+|  androidbench.py       |     |  harness.py            |
+|  androidbench_runner.py|     |  benchmark_worker.py   |
+|  androidbench.yaml     |     |  main.py               |
++-------------------------+     +-------------------------+
+              |                               |
+              v                               v
++-------------------------+     +-------------------------+
+|  MiniSWE-Agent          |     |  Docker Container       |
+|  (LLM Interface)        |     |  - Android SDK          |
+|  LiteLLM                |     |  - Gradle               |
+|                         |     |  - Test Suite          |
++-------------------------+     +-------------------------+
 ```
 
 ## 核心组件
 
-### 1. CLI 工具
+### 1. CLI 层
 
-**文件**: `cli/`
+**目录**: `cli/`
 
-| 命令 | 用途 |
+| 命令 | 功能 |
 |------|------|
-| `run_task` | 运行单个任务的完整流程 (推理 + 评估) |
+| `benchmark` | 端到端运行整个流水线 (推理 + 评估) |
+| `run_task` | 运行单个任务的完整流水线 |
 | `agent` | 仅运行推理阶段 |
 | `verifier` | 仅运行评估阶段 |
-| `benchmark` | 运行完整基准测试套件 |
-| `build_images` | 构建 Docker 镜像 |
-| `dataset` | 数据集浏览器 |
-| `results` | 结果可视化 |
+| `dataset` | 浏览和检查数据集任务 |
+| `results` | 可视化结果 |
 
+### 2. Common 层
+
+**目录**: `common/`
+
+#### 配置管理 (`config.py`, `run_config.py`)
 ```python
-# run_task.py 示例
-def main():
-    # 1. 构建本地镜像 (如需要)
-    subprocess.run(build_command)
-
-    # 2. 运行 Agent 生成补丁
-    subprocess.run(agent_command)
-
-    # 3. 运行 Verifier 评估
-    subprocess.run(verifier_command)
+# BaseConfig 定义全局配置
+class BaseConfig:
+    model: str                           # 使用的模型
+    dataset_dir: Path                    # 数据集目录
+    output_dir: Path                     # 输出目录
+    docker_image: str                    # Docker 镜像名称
+    max_workers: int                     # 并行工作数
+    skip_existing: bool                  # 跳过已存在的任务
 ```
 
-### 2. 推理引擎 (Inference)
-
-**文件**: `harness/inference/`
-
+#### 任务加载 (`loader.py`)
 ```python
-# androidbench.py - Agent 实现
-class AndroidBenchAgent:
-    async def run(self, task: Task, model: str) -> Patch:
-        # 1. 加载任务
-        task_data = self.load_task(task)
+def load_all_tasks(dataset_dir: Path) -> List[Task]:
+    """加载所有任务定义"""
 
-        # 2. 构建提示
-        prompt = self.build_prompt(task_data)
+def load_task(task_id: str) -> Task:
+    """加载单个任务"""
 
-        # 3. 调用 LLM
-        response = await self.llm.chat(prompt)
-
-        # 4. 解析补丁
-        patch = self.parse_patch(response)
-
-        return patch
+def get_tasks_by_category(category: str) -> List[Task]:
+    """按类别筛选任务"""
 ```
 
-### 3. 评估引擎 (Evaluation)
+#### 存储层 (`storage/`)
+- 管理任务结果和运行历史的持久化
 
-**文件**: `harness/evaluation/`
+### 3. Harness 层 - 推理 (Inference)
 
+**目录**: `harness/inference/`
+
+#### 核心文件
+- `androidbench.py` - 主推理引擎，并行执行多个任务
+- `androidbench_runner.py` - 单任务运行器
+- `androidbench.yaml` - Agent 配置
+
+#### 推理流程
 ```python
-# harness.py - Verifier 实现
-class EvaluationHarness:
-    def evaluate(self, task: Task, patch: Patch) -> Score:
-        # 1. 在 Docker 容器中执行
-        with self.docker_container(task) as container:
-            # 2. 应用补丁
-            container.apply_patch(patch)
+async def run_inference(task: Task, model: str) -> Patch:
+    # 1. 加载任务定义
+    issue_description = task.description
 
-            # 3. 构建项目
-            container.run_commands(task.commands.build)
+    # 2. 准备提示词
+    prompt = build_prompt(task)
 
-            # 4. 运行测试
-            test_results = container.run_tests(task.commands.unit_test)
+    # 3. 调用 LLM
+    response = await llm.complete(prompt)
 
-        # 5. 评分
-        score = self.calculate_score(test_results, task.acceptance_criteria)
+    # 4. 解析补丁
+    patch = parse_patch(response)
 
-        return score
+    # 5. 保存补丁
+    save_patch(task.id, patch)
+
+    return patch
 ```
 
-### 4. 数据集结构
+#### LLM 集成
+- 基于 **mini-swe-agent** 构建
+- 使用 **LiteLLM** 支持多种模型 (OpenAI, Gemini, Anthropic 等)
+- 模型名称格式: `provider/model-name` (如 `gemini/gemini-2.5-flash`)
 
-**文件**: `dataset/tasks/<task_id>/task.yaml`
+### 4. Harness 层 - 评估 (Evaluation)
 
+**目录**: `harness/evaluation/`
+
+#### 核心文件
+- `harness.py` - 评估核心逻辑
+- `benchmark_worker.py` - 单任务评估工作器
+- `main.py` - 评估命令行入口
+
+#### 评估流程
+```python
+async def evaluate(patch: Patch, task: Task) -> Score:
+    # 1. 构建 Docker 镜像
+    image = build_task_image(task)
+
+    # 2. 在容器中运行
+    container = await run_container(image, task)
+
+    # 3. 应用补丁
+    await container.apply_patch(patch)
+
+    # 4. 运行测试
+    test_results = await container.run_tests(task.commands)
+
+    # 5. 评分
+    score = calculate_score(test_results, task.acceptance_criteria)
+
+    return score
+```
+
+#### 验收标准
 ```yaml
-instance_id: "Owner__repo-pr_123"
-task_type: "bugfix"
-category_ids: ["compose", "hilt"]
+acceptance_criteria:
+  fail_to_pass:           # 基础提交上失败，应用补丁后通过
+    - testAnalyticsDebugUnitTest#Test intentsAreParsedCorrectly
+  pass_to_pass:           # 基础提交和应用补丁后都应通过
+    - testAnalyticsDebugUnitTest#Test should_start_trusted_app
+```
 
-description: |
-  # 问题描述
-  当用户点击按钮时，应用崩溃...
+### 5. 数据集层
 
+**目录**: `dataset/tasks/{task_id}/`
+
+#### 任务结构
+```
+task_id/
+├── task.yaml          # 任务定义
+├── golden.patch      # 黄金修复 (Oracle 解决方案)
+├── test.patch        # 测试文件补丁
+└── Dockerfile        # 任务特定的 Docker 配置
+```
+
+#### task.yaml 规范
+```yaml
+instance_id: "AlphaWallet__alpha-wallet-android-pr_3329"
 repository:
-  owner: "google"
-  name: "compose-samples"
-
+  name: alpha-wallet-android
+  owner: AlphaWallet
+  url: https://github.com/AlphaWallet/alpha-wallet-android
 before_commit:
-  sha: "abc123"
-  java_version: 17
-  target_sdk: 34
-
+  sha: eea8b6402b6fa53fa0ed93cf87d2d58e30958fa6
+after_commit:
+  sha: 5c8712695f4195e6b28dd643e5fd114b96ffaef0
 commands:
   build: ["./gradlew assembleDebug"]
-  unit_test: ["./gradlew testDebugUnitTest"]
-
+  unit_test: ["./gradlew ... testDebugUnitTest"]
+  android_test: ["./gradlew ... connectedDebugAndroidTest"]
+test_files:
+  - app/src/test/java/com/alphawallet/app/IntentTest.java
 acceptance_criteria:
   fail_to_pass:
-    - "com.example.MainActivityTest#testButtonClick"
+    - testAnalyticsDebugUnitTest#Test intentsAreParsedCorrectly
   pass_to_pass:
-    - "com.example.utils.*"
+    - testAnalyticsDebugUnitTest#Test should_start_trusted_app
 ```
 
-### 5. 数据集获取流程
+## 执行流程
 
-1. **来源**:
-   - GitHub Pull Requests (来自过去 3 年的热门 Android 仓库)
-   - 专家编写 (针对关键领域)
-
-2. **技术审查**:
-   - 可重现性验证
-   - 测试适用性验证
-   - 工程审查
-
-3. **清理**:
-   - 去除 PII
-   - 添加 canary 字符串防止数据污染
-
-## 工作流程
-
+### 完整流水线
 ```
-┌────────────────────────────────────────────────────────────────────┐
-│                      完整基准测试流程                                │
-└────────────────────────────────────────────────────────────────────┘
-
-1. 用户执行命令
-   $ run_task --model gemini/gemini-2.5-flash --task android_snippets_1
-
-2. CLI 编排
-   ├── 2.1 检查/构建 Docker 镜像
-   ├── 2.2 运行 Agent (推理)
-   │      └── Agent 读取问题描述
-   │      └── 构建提示
-   │      └── 调用 LLM
-   │      └── 生成补丁
-   └── 2.3 运行 Verifier (评估)
-          └── 启动 Docker 容器
-          └── 应用补丁
-          └── 构建项目
-          └── 运行测试
-          └── 评分
-
-3. 输出结果
-   └── scores.json
-   └── 补丁文件
-   └── 日志
+1. 用户执行: run_task --model gemini/gemini-2.5-flash --task <TASK_ID>
+   |
+   v
+2. CLI 解析参数，加载配置
+   |
+   v
+3. 推理阶段 (Inference):
+   +-- 加载任务定义
+   +-- 克隆代码库 (指定版本)
+   +-- 构建提示词 (问题描述 + 上下文)
+   +-- 调用 LLM 生成补丁
+   +-- 保存补丁到输出目录
+   |
+   v
+4. 评估阶段 (Evaluation):
+   +-- 构建/加载 Docker 镜像
+   +-- 在容器中克隆代码库
+   +-- 应用生成的补丁
+   +-- 运行测试命令
+   +-- 收集测试结果
+   +-- 根据验收标准评分
+   |
+   v
+5. 输出结果:
+   +-- scores.json - 评分详情
+   +-- logs/ - 执行日志
+   +-- patches/ - 生成的补丁
 ```
 
-## 验收标准
+### Docker 镜像策略
 
-```yaml
-acceptance_criteria:
-  # 必须失败的测试 (基线有 bug) → 修复后通过
-  fail_to_pass:
-    - "com.example.CrashTest#testButtonDoesNotCrash"
+| 镜像类型 | 说明 | 构建时机 |
+|----------|------|----------|
+| Base Image | Android SDK + Gradle | 首次 setup |
+| Repo Image | 基础代码库 | 按需构建 |
+| Task Image | 任务特定环境 | 首次运行任务 |
 
-  # 必须一直通过的测试 (回归测试)
-  pass_to_pass:
-    - "com.example.utils.*"
+```bash
+# 镜像构建命令
+uv run build_images --build --arch linux/amd64
 ```
 
 ## 技术栈
 
 | 组件 | 技术 | 用途 |
 |------|------|------|
-| 运行时 | Python 3.14+ | CLI 和核心逻辑 |
-| 包管理 | uv | 快速 Python 包安装 |
+| 包管理 | uv | Python 依赖管理 |
+| Agent 框架 | mini-swe-agent | LLM Agent 执行 |
+| 模型抽象 | LiteLLM | 多模型支持 |
 | 容器化 | Docker | 隔离执行环境 |
-| LLM 集成 | LiteLLM | 多模型支持 |
-| 测试 | pytest | 单元和集成测试 |
-| 虚拟化 | KVM | ARM64 模拟 (x86 主机) |
+| 测试框架 | pytest | 单元测试 |
+| 构建工具 | Gradle | Android 项目构建 |
+| 并行执行 | concurrent.futures | 多任务并行 |
 
-## 关键设计决策
+## 评分系统
 
-### 1. 为什么两阶段分离？
-- **灵活性**: 可以单独运行推理或评估
-- **调试**: 方便单独调试每个阶段
-- **缓存**: 生成的补丁可以重复评估
+### 评分维度
+1. **pass_to_pass**: 基础提交和应用补丁后都应通过的测试
+2. **fail_to_pass**: 基础提交上失败，应用补丁后通过的测试
 
-### 2. 为什么用 Docker？
-- **可重现性**: 固定的 Android SDK 和 Gradle 版本
-- **隔离性**: 测试不会影响主机环境
-- **一致性**: 不同机器上结果一致
+### 评分逻辑
+```python
+def calculate_score(test_results, acceptance_criteria):
+    fail_to_pass_tests = acceptance_criteria.fail_to_pass
+    pass_to_pass_tests = acceptance_criteria.pass_to_pass
 
-### 3. 为什么用任务特定镜像？
-- **优化**: 每个任务只需要必要的依赖
-- **速度**: 避免每次都下载所有依赖
-- **隔离**: 不同任务的构建环境完全隔离
+    # 必须全部通过
+    all_fail_to_pass_passed = all(
+        t in test_results.passed for t in fail_to_pass_tests
+    )
+    all_pass_to_pass_passed = all(
+        t in test_results.passed for t in pass_to_pass_tests
+    )
 
-## 局限性
+    if all_fail_to_pass_passed and all_pass_to_pass_passed:
+        return Score.PASS
+    else:
+        return Score.FAIL
+```
 
-1. **磁盘空间**: 基础镜像 + 仓库镜像 + 任务镜像可能需要 40GB+
-2. **ARM64 限制**: macOS 上无法运行嵌套虚拟化，Android SDK 只提供 x86_64
-3. **首次冷启动**: 首次运行需要 5-10 分钟构建镜像
+### 状态码
+- `applied_patch_failed_tests`: 补丁应用成功但测试失败
+- `build_failed`: 构建失败
+- `test_timeout`: 测试超时
+- `patch_not_found`: 未找到补丁
+
+## 扩展性
+
+### 添加新任务
+1. 在 `dataset/tasks/` 创建任务目录
+2. 编写 `task.yaml` 定义问题和验收标准
+3. 准备 `golden.patch` (Oracle 解决方案)
+4. 编写 `Dockerfile` 定义执行环境
+5. 运行 `dataset` 命令验证任务
+
+### 支持新模型
+1. 确保模型被 LiteLLM 支持
+2. 导出对应的 API Key
+3. 使用 `provider/model-name` 格式调用
 
 ## 使用示例
 
 ```bash
-# 发现任务
+# 浏览数据集
 dataset
-dataset browse --category compose
 
 # 运行单个任务
 run_task --model gemini/gemini-2.5-flash --task android_snippets_1
@@ -274,15 +337,27 @@ run_task --model gemini/gemini-2.5-flash --task android_snippets_1
 # 运行基准测试
 benchmark --model gemini/gemini-2.5-flash --num_runs 5
 
-# 可视化结果
-results --input-dir our
+# 仅运行推理
+agent -i <task_id> --model openai/gpt-4o
 
-# 测试验证器
-verifier --test-run --run-name oracle-agent
+# 仅运行评估
+verifier --run-name <run_name>
+
+# 可视化结果
+results --input-dir out
 ```
+
+## 限制与注意事项
+
+1. **资源密集**: 基础镜像、代码库镜像和任务镜像可能需要 40GB+ 磁盘空间
+2. **首次启动慢**: 首次运行任务需要 5-10+ 分钟构建 Docker 镜像
+3. **ARM64 限制**: macOS ARM64 无法运行嵌套虚拟化，Android SDK 仅支持 x86_64
+4. **API 密钥**: 需要配置相应模型的 API Key
 
 ## 参考资料
 
 - [Android Bench GitHub](https://github.com/android-bench/android-bench)
-- [mini-swe-agent](https://www.mini-swe-agent.com) - 推理引擎
-- [LiteLLM](https://github.com/BerriAI/litellm) - 多模型集成
+- [User Guide](docs/guide.md)
+- [Dataset Documentation](docs/dataset.md)
+- [MiniSWE-Agent](https://www.mini-swe-agent.com)
+- [LiteLLM](https://github.com/BerriAI/litellm)
