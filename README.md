@@ -26,15 +26,16 @@
 
 | 类别 | 描述 | 文档数 |
 |------|------|--------|
-| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 25 |
-| [Agent Evaluation](./docs/learns/evaluation/) | Agent 测试和评估模式 | 3 |
+| [Agent Harness](./docs/learns/harness/) | Agent 框架和编排工具模式 | 30 |
+| [Agent Evaluation](./docs/learns/evaluation/) | Agent 测试和评估模式 | 4 |
 | [Agent Training](./docs/learns/training/) | Agent 训练和微调方法 | 0 |
+| [VAD](./docs/learns/vad/) | 语音活动检测技术 | 1 |
 
 #### Harness 主题
 
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
-| [流式处理](./docs/learns/harness/streaming/) | 异步流式、WebSocket 模式 | 7 |
+| [流式处理](./docs/learns/harness/streaming/) | 异步流式、WebSocket 模式 | 9 |
 | [错误处理](./docs/learns/harness/error-handling/) | 结构化错误、重试策略 | 1 |
 | [上下文管理](./docs/learns/harness/context-management/) | 会话历史、上下文转换 | 4 |
 | [类型安全](./docs/learns/harness/type-safety/) | 类型安全的消息层次结构 | 1 |
@@ -43,7 +44,7 @@
 | [架构](./docs/learns/harness/architecture/) | 框架架构分析 | 5 |
 | [抽象层](./docs/learns/harness/abstractions/) | LLM 抽象层比较 | 3 |
 | [WebSocket](./docs/learns/harness/websocket/) | OpenAI WebSocket 比较 | 1 |
-| [机器人技术](./docs/learns/harness/robotics/) | 机器人运动控制 | 2 |
+| [机器人技术](./docs/learns/harness/robotics/) | 机器人运动控制 | 3 |
 
 ### 最佳实践
 
@@ -86,9 +87,9 @@
 
 ```
 仓库：15（Agent: 3, Agent-harness: 9, Evaluation: 3, Training: 0）
-文档：29 个学习笔记 + 3 个最佳实践文档
-主题：11
-最后更新：2026-03-10
+文档：35 个学习笔记 + 5 个最佳实践文档
+主题：12
+最后更新：2026-03-21
 ```
 
 ---

@@ -20,6 +20,7 @@ Agent 框架和编排工具的模式分析。
 | [Codex 流式处理](./streaming/codex-streaming.md) | WebSocket 实时对话、SSE 回退、增量请求优化 | P1 |
 | [LiveKit Agents 双工管道](./streaming/livekit-agents-duplex-pipeline.md) | ASR→LLM→TTS 级联管道、打断处理、抢占生成、动态端点检测 | P0 |
 | [FlushSentinel 与 PREFLIGHT 抢占机制](./streaming/livekit-agents-preflight-flushsentinel.md) | FlushSentinel 分段合成、PREFLIGHT 意图预判、抢占生成生命周期、EOU 检测 | P0 |
+| [实时语音对比](./streaming/agentscope-realtime-vs-kosong.md) | AgentScope 实时语音与 Kosong 方案对比 | P2 |
 
 ### [错误处理](./error-handling/)
 
@@ -74,6 +75,7 @@ Agent 框架和编排工具的模式分析。
 | [Republic Anchor 机制](./architecture/republic-anchor-mechanism.md) | Tape Anchor 上下文切片实现 | P2 |
 | [OpenClaw Opik 可观测性插件架构](./architecture/openclaw-opik-observability-plugin.md) | 事件投影式 tracing：hook、状态聚合、延迟 finalize、附件旁路上传 | P1 |
 | [Codex LLM 抽象层](./architecture/codex-llm-abstraction.md) | ModelClient/Session 设计、WebSocket 预热、流式回退 | P1 |
+| [Slate 架构](./architecture/slate-architecture.md) | Slate 架构设计分析 | P2 |
 
 ### [抽象层](./abstractions/)
 
@@ -101,6 +103,15 @@ WebSocket 协议比较。
 |------|------|--------|
 | [分层运动系统](./robotics/layered-motion-system.md) | 主要动作与次要偏移的融合架构、100Hz 控制循环、线程安全状态管理 | P0 |
 | [机器人情绪系统设计](./robotics/emotion-system-design.md) | 情绪/舞蹈/呼吸状态切换、语音同步摆动、产品鲜活感设计考量 | P0 |
+| [Dimensional OS 架构](./robotics/dimensional-os-architecture.md) | Dimensional OS 机器人架构分析 | P2 |
+
+### [Slate](./)
+
+Slate 架构相关。
+
+| 文档 | 描述 | 优先级 |
+|------|------|--------|
+| [Slate 架构](./slate-architecture.md) | Slate 架构设计分析 | P2 |
 
 ---
 
@@ -124,6 +135,19 @@ WebSocket 协议比较。
 | P2 | [上下文管理双模式](./context-management/context-management-dual-mode.md) | 状态管理 |
 | P2 | [中间件/回调系统](./middleware/middleware-callback-system.md) | 可扩展性 |
 | P2 | [状态快照并发](./concurrency/state-snapshot-concurrency.md) | 并发 |
+| P2 | [Kimi CLI 架构](./architecture/kimi-cli-architecture.md) | 架构设计 |
+| P2 | [Republic Anchor 机制](./architecture/republic-anchor-mechanism.md) | 上下文切片 |
+| P2 | [流式比较](./streaming/streaming-comparison.md) | 流式对比 |
+| P2 | [WebSocket 流式支持](./streaming/websocket-streaming-support.md) | WebSocket |
+| P2 | [OpenAI WebSocket 比较](./websocket/openai-websocket-comparison.md) | WebSocket |
+| P2 | [LLM 抽象比较](./abstractions/llm-abstraction-comparison.md) | 抽象设计 |
+| P2 | [LLM 调用返回封装](./abstractions/llm-call-return-encapsulation.md) | SDK 模式 |
+| P2 | [LLM 框架比较](./abstractions/llm-framework-comparison.md) | 框架对比 |
+| P2 | [上下文转换比较](./context-management/context-transformation-comparison.md) | 上下文转换 |
+| P2 | [会话历史管理](./context-management/session-history-management.md) | 会话管理 |
+| P2 | [Slate 架构](./slate-architecture.md) | 架构 |
+| P2 | [Dimensional OS 架构](./robotics/dimensional-os-architecture.md) | 机器人架构 |
+| P2 | [实时语音对比](./streaming/agentscope-realtime-vs-kosong.md) | 实时语音对比 |
 
 ---
 
@@ -138,4 +162,4 @@ WebSocket 协议比较。
 
 ---
 
-*最后更新：2026-03-20*
+*最后更新：2026-03-21*

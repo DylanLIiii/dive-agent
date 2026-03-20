@@ -110,7 +110,8 @@
         "addedAt": "2026-03-20",
         "notes": [
           "docs/learns/harness/streaming/livekit-agents-duplex-pipeline.md",
-          "docs/learns/harness/streaming/livekit-agents-preflight-flushsentinel.md"
+          "docs/learns/harness/streaming/livekit-agents-preflight-flushsentinel.md",
+          "docs/learns/vad/livekit-vad-architecture.md"
         ],
         "commit": "43f47e3e4d2e9b225e310ccbfb297da0bda1bda7"
       }
