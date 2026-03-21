@@ -4,7 +4,7 @@
 
 ## 分类
 
-### [Agent](./agent/)（3 个仓库）
+### [Agent](./agent/)（4 个仓库）
 
 独立的 AI Agent 应用和实现，可直接使用。
 
@@ -13,6 +13,7 @@
 | [om1](https://github.com/OpenMind/OM1) | 模块化机器人 AI 运行时和框架，用于人形机器人 | Python | ✅ |
 | [reachy-mini-conversation-app](https://github.com/pollen-robotics/reachy_mini_conversation_app) | Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库 | Python | ✅ |
 | [codex](https://github.com/openai/codex) | OpenAI 的轻量级编码 Agent，在终端中运行 | TypeScript | - |
+| [FireRedChat](https://github.com/FireRedTeam/FireRedChat) | 完全自托管的全双工语音交互解决方案 | Python | - |
 
 **[查看详情 →](./agent/README.md)**
 

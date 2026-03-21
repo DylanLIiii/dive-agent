@@ -118,6 +118,16 @@
     ],
     "agent": [
       {
+        "name": "FireRedChat",
+        "url": "https://github.com/FireRedTeam/FireRedChat.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "A Fully Self-Hosted Solution for Full-Duplex Voice Interaction",
+        "addedAt": "2026-03-21",
+        "notes": [],
+        "commit": "9d8c4b99fbd27380f6bf44f9b2f78ae615229a55"
+      },
+      {
         "name": "nanoclaw",
         "url": "https://github.com/qwibitai/nanoclaw.git",
         "branch": "main",
