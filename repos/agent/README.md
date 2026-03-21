@@ -26,6 +26,7 @@ Agent 仓库是完整的、可运行的 Agent 应用：
 | [om1](https://github.com/OpenMind/OM1) | 模块化机器人 AI 运行时和框架，用于人形机器人 | Python | ✅ |
 | [reachy-mini-conversation-app](https://github.com/pollen-robotics/reachy_mini_conversation_app) | Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库 | Python | ✅ |
 | [codex](https://github.com/openai/codex) | OpenAI 的轻量级编码 Agent，在终端中运行 | TypeScript | - |
+| [FireRedChat](https://github.com/FireRedTeam/FireRedChat) | 完全自托管的全双工语音交互解决方案 | Python | - |
 
 ### om1
 
@@ -98,6 +99,32 @@ Agent 仓库是完整的、可运行的 Agent 应用：
 - 代码库级别的上下文管理
 - 安全的代码自动修改模式
 - CLI 工具与 LLM 的集成方式
+
+### FireRedChat
+
+**仓库**: https://github.com/FireRedTeam/FireRedChat
+
+**描述**: 完全自托管的全双工语音交互解决方案，集成 TTS、ASR、pVAD 和 EoT 功能。
+
+**技术特点**:
+- **LiveKit RTC Server**: 核心实时通信服务，处理音频/视频流
+- **FireRedTTS**: 高质量文本转语音服务
+- **FireRedASR**: 自动语音识别服务，支持标点模型
+- **pVAD**: 个性化语音活动检测，提升打断体验
+- **Turn-Detector**: 端点检测，缩短响应延迟
+- **自托管 LLM**: 支持 Ollama、vLLM、Dify 等
+
+**架构模式**:
+- 基于 LiveKit Agents 的实时语音 AI 框架
+- 模块化服务架构（TTS、ASR、LLM 分离）
+- 全双工通信支持持续对话
+- Docker Compose 一键部署
+
+**学习价值**:
+- 实时语音 AI Agent 架构设计
+- 全双工语音交互实现
+- 自托管语音 AI 方案
+- 多服务协同的 Agent 系统
 
 ## 建议添加
 

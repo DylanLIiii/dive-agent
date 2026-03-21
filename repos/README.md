@@ -4,7 +4,7 @@
 
 ## 分类
 
-### [Agent](./agent/)（3 个仓库）
+### [Agent](./agent/)（4 个仓库）
 
 独立的 AI Agent 应用和实现，可直接使用。
 
@@ -13,12 +13,13 @@
 | [om1](https://github.com/OpenMind/OM1) | 模块化机器人 AI 运行时和框架，用于人形机器人 | Python | ✅ |
 | [reachy-mini-conversation-app](https://github.com/pollen-robotics/reachy_mini_conversation_app) | Reachy Mini 机器人对话应用，结合 OpenAI 实时 API、视觉管道和动作库 | Python | ✅ |
 | [codex](https://github.com/openai/codex) | OpenAI 的轻量级编码 Agent，在终端中运行 | TypeScript | - |
+| [FireRedChat](https://github.com/FireRedTeam/FireRedChat) | 完全自托管的全双工语音交互解决方案 | Python | - |
 
 **[查看详情 →](./agent/README.md)**
 
 ---
 
-### [Agent-harness](./agent-harness/)（8 个仓库）
+### [Agent-harness](./agent-harness/)（9 个仓库）
 
 Agent 框架和编排工具，提供构建 AI Agent 的核心抽象。
 
@@ -32,6 +33,7 @@ Agent 框架和编排工具，提供构建 AI Agent 的核心抽象。
 | [litai](https://github.com/Lightning-AI/litai) | 轻量级 LLM 路由器，统一计费 | Python |
 | [kimi-cli](https://github.com/MoonshotAI/kimi-cli) | 终端 Agent，包含 kosong 流式库 | Python |
 | [pi-mono](https://github.com/pi-company/pi-mono) | 多提供者 LLM 抽象 monorepo | TypeScript |
+| [livekit-agents](https://github.com/livekit/agents) | 实时多模态 AI Agent 框架，支持语音/视频流式处理 | Python |
 
 **[查看详情 →](./agent-harness/README.md)**
 
@@ -83,4 +85,4 @@ Agent 模型训练和微调资源。
 
 ---
 
-*最后更新：2026-03-04*
+*最后更新：2026-03-20*

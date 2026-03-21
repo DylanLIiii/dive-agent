@@ -19,13 +19,15 @@ Agent Evaluation 涵盖：
 | 主题 | 描述 | 文档数 |
 |------|------|--------|
 | [Seed-driven Evaluation](./seed-driven-evaluation/) | 基于 Seed 的自适应行为评估模式 | 1 |
-| Production Tracing & Eval | 生产级 trace 与可定制评估方案 | 1 |
+| Production Tracing & Eval | 生产级 trace 与可定制评估方案 | 3 |
 
 ### 其他文档
 
 | 文档 | 描述 | 优先级 |
 |------|------|--------|
 | [Opik Bloom 集成](./opik-bloom-integration.md) | 评估框架与观测平台集成，Bloom 后门检测与 Opik 可观测性结合 | P1 |
+| [Android Bench 架构](./android-bench-architecture.md) | ACEBench 工具使用基准测试架构分析 | P2 |
+| [Production Trace 与 Eval](./production-trace-eval-langfuse.md) | Langfuse 生产级 trace 与评估方案 | P2 |
 
 ---
 
@@ -72,4 +74,4 @@ mkdir -p docs/learns/evaluation/backdoor-detection
 
 ---
 
-*最后更新：2026-03-04*
+*最后更新：2026-03-21*

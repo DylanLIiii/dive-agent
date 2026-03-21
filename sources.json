@@ -100,9 +100,33 @@
           "docs/learns/context-management/context-management-dual-mode.md"
         ],
         "commit": "9a0a8d7ccb03b89bd3700477b2b8b399bd38dc03"
+      },
+      {
+        "name": "livekit-agents",
+        "url": "https://github.com/livekit/agents.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "实时多模态 AI Agent 框架，支持语音/视频流式处理",
+        "addedAt": "2026-03-20",
+        "notes": [
+          "docs/learns/harness/streaming/livekit-agents-duplex-pipeline.md",
+          "docs/learns/harness/streaming/livekit-agents-preflight-flushsentinel.md",
+          "docs/learns/vad/livekit-vad-architecture.md"
+        ],
+        "commit": "43f47e3e4d2e9b225e310ccbfb297da0bda1bda7"
       }
     ],
     "agent": [
+      {
+        "name": "FireRedChat",
+        "url": "https://github.com/FireRedTeam/FireRedChat.git",
+        "branch": "main",
+        "depth": 1,
+        "description": "A Fully Self-Hosted Solution for Full-Duplex Voice Interaction",
+        "addedAt": "2026-03-21",
+        "notes": [],
+        "commit": "9d8c4b99fbd27380f6bf44f9b2f78ae615229a55"
+      },
       {
         "name": "nanoclaw",
         "url": "https://github.com/qwibitai/nanoclaw.git",
